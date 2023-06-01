@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'about.css' %}">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="intro intro-container">
+        <div class="container">
+            <div class="intro-content">
+                <div class="intro-data">
+                    <h2>About Us</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam eos, accusamus distinctio
+                        doloribus ullam repellendus. Laborum beatae eaque praesentium neque!</p>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam eos, accusamus distinctio
+                        doloribus ullam repellendus. Laborum beatae eaque praesentium neque!</p>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam eos, accusamus distinctio
+                        doloribus ullam repellendus. Laborum beatae eaque praesentium neque!</p>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam eos, accusamus distinctio
+                        doloribus ullam repellendus. Laborum beatae eaque praesentium neque!</p>
+                </div>
+                <div class="intro-img">
+                    <img src="{% static 'assets/about1.png' %}" alt="">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+{% endblock main %}

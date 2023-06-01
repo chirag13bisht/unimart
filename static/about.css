@@ -1,0 +1,23 @@
+.intro-container{
+    background: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.intro-content{
+    display: flex;
+
+}
+.intro-data h2{
+    font-size: 35px;
+    padding-bottom: 5rem;
+    color: #04152d;
+}
+.intro-data p{
+    font-size: 15px;
+    padding-bottom: 2rem;
+}
+.intro-data{
+    width: 70%;
+}

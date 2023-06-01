@@ -3,24 +3,20 @@
 {% block main %}
 
 <section class="home-container">
-
-    <div class="container">
-        <div class="home-data">
-            <div class="home-content">
-                <div class="home-title text-5xl font-bold">
-                    <h1>Get your things on rent</h1>
-                </div>
-                <div class="home-subtitle">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae placeat reiciendis ratione quod
-                    labore vitae facere similique officiis aut? Dolor dignissimos nihil maxime! Tempore placeat
-                    molestiae culpa perferendis nostrum maxime numquam similique incidunt distinctio! Nisi porro
-                </div>
-                <button class="home-btn">Try Now</button>
+    <div class="home-data">
+        <div class="home-content">
+            <div class="home-title text-5xl font-bold">
+                <h1 class="main-title">Zero Waste Marketplace, Just For Students</h1>
             </div>
-            <div class="home-img">
-                <img src="{% static 'assets/back.jpg' %}" alt="">
+            <div class="home-subtitle">
+                Buy, Sell and Rent Used Student Products.
             </div>
         </div>
+        <div class="home-img"></div>
+    </div>
+    <div class="home-matter">
+        <button class="home-btn">Join Us</button>
+        <p>Join us in building a vibrant and sustainable student community. <br/> Together, we can make a difference.</p>
     </div>
 </section>
 
@@ -33,7 +29,7 @@
                     minima? Eaque nostrum sunt unde illo maiores numquam? Excepturi.</h2>
             </div>
             <div class="about-img">
-                <img src="./assets/about.png" alt="">
+                <img src="{% static 'assets/about.png' %}" alt="">
             </div>
         </div>
     </div>
@@ -45,21 +41,21 @@
             <p>How It Works</p>
         </div>
         <div class="work-content">
-            <div class="work-box">
-                <img src="./assets/img1.png" alt="">
+            <div class="work-box box1">
+                <img src="{% static 'assets/img1.png' %}" alt="">
                 <h3>Verify students status</h3>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro maiores dolores voluptates ipsa,
                     blanditiis rerum!</p>
             </div>
-            <div class="work-box">
-                <img src="./assets/img2.png" alt="">
-                <h3>Verify students status</h3>
+            <div class="work-box box2">
+                <img src="{% static 'assets/img2.png' %}" alt="">
+                <h3>Share it With Friends</h3>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque beatae nam praesentium eligendi
                     harum ea.</p>
             </div>
-            <div class="work-box">
-                <img src="./assets/img3.png" alt="">
-                <h3>Verify students status</h3>
+            <div class="work-box box3">
+                <img src="{% static 'assets/img3.png' %}" alt="">
+                <h3>Launch List or Rent</h3>
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto voluptatem, maiores autem
                     repellat molestiae omnis!</p>
             </div>
@@ -90,13 +86,13 @@
                     </div>
                 </form>
                 <div class="login-img">
-                    <img src="./assets/login.png" alt="">
+                    <img src="{% static 'assets/login.png' %}" alt="">
                 </div>
             </div>
         </div>
 
     </div>
-    <hr size="1" width="100%" color="white">
+    <!-- <hr size="1" width="100%" color="white"> -->
     </hr>
 </div>
 {% endblock %}
