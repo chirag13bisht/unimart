@@ -4,7 +4,8 @@ from .models import Listing
 
 # Create your views here.
 def all_products(request):
-    products = Listing.objects.all().filter(status="Active").filter(college=request.user.college)
+    # products = Listing.objects.all().filter(status="Active").filter(college=request.user.university)
+    products = Listing.objects.all().filter(status="Active")
     return render(request, "all_products.html", {"products": products})
     # return JsonResponse({"products": products})
 
@@ -16,12 +17,12 @@ def product_detail(request, product_id):
 
 def search(request):
     query = request.GET.get('query')
-    products = Listing.objects.all().filter(name__icontains=query).filter(status="Active").filter(college=request.user.college)
+    products = Listing.objects.all().filter(name__icontains=query).filter(status="Active").filter(college=request.user.university)
     # return render(request, "all_products.html", {"products": products})
     return JsonResponse({"products": products})
 
 def category(request, category):
-    products = Listing.objects.all().filter(category=category).filter(status="Active").filter(college=request.user.college)
+    products = Listing.objects.all().filter(category=category).filter(status="Active").filter(college=request.user.university)
     # return render(request, "all_products.html", {"products": products})
     return JsonResponse({"products": products})
 
