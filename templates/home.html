@@ -23,14 +23,13 @@
 <div class="about about-container">
     <div class="container">
         <div class="about-content">
-            <div class="about-data">
-                <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, ad dignissimos. Voluptatem,
-                    excepturi
-                    minima? Eaque nostrum sunt unde illo maiores numquam? Excepturi.</h2>
-            </div>
             <div class="about-img">
-                <img src="{% static 'assets/about.png' %}" alt="">
+                <img src="{% static 'assets/about2.png' %}" alt="">
             </div>
+            <div class="about-data">
+                <h2>Welcome to UniMart!</h2>
+                <p>We’re on a mission to help students to innovate, save money and live a more sustainable life.</p>
+            </div> 
         </div>
     </div>
 </div>
@@ -63,36 +62,13 @@
     </div>
 </div>
 
-<div class="pta-nhi">
-    <div class="contact contact-container">
-        <div class="container">
-            <div class="contactform">
-                <form class="contact-data">
-                    <h2 class="contact-title">Get In Touch</h2>
-                    <div class="inputbox">
-                        <input type="text" name="name" required="required" />
-                        <span>Name</span>
-                    </div>
-                    <div class="inputbox">
-                        <input type="text" name="email" required="required" />
-                        <span>E-mail</span>
-                    </div>
-                    <div class="inputbox">
-                        <textarea required="required" name="message"></textarea>
-                        <span>Message</span>
-                    </div>
-                    <div class="inputbox">
-                        <input type="submit" value="Send" />
-                    </div>
-                </form>
-                <div class="login-img">
-                    <img src="{% static 'assets/login.png' %}" alt="">
-                </div>
-            </div>
-        </div>
 
+<div class="contacts">
+    <div class="contacts-data">
+        <h3>Get in touch with us</h3>
+        <p>unimart.sustainable@gmail.com</p>
+        <p>+91 9797867565</p>
     </div>
-    <!-- <hr size="1" width="100%" color="white"> -->
-    </hr>
 </div>
+
 {% endblock %}
