@@ -27,7 +27,8 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-body {
+body{
+  overflow-x: hidden;
 }
 .container {
   width: 1150px;
@@ -66,8 +67,10 @@ body {
   height: 50px;
 }
 .header-container {
-  background: #CCCCCC;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 9px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  background: #fff9f2;
+  /* box-shadow: #696969 0px 0px 10px 10px; */
+  /* z-index: 9999; */
+  border-bottom: #F6931C 2px solid;
   /* position: fixed;
     margin: 0;
     padding: 0; */
@@ -98,7 +101,7 @@ body {
   justify-content: center;
   padding: 4rem 0;
   column-gap: 2rem;
-  background: rgba(128, 128, 128, 0.507);
+  background: #fdfaf7;
   /* align-items: center; */
 }
 .home-container{

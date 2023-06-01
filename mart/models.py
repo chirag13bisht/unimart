@@ -25,6 +25,7 @@ class Listing(models.Model):
         ("Used", "Used"),
         ("Very Used", "Very Used"),
         ("Okayish", "Okayish")])
+    contact = models.BigIntegerField()
 
     def __str__(self):
         return f"{self.name}"

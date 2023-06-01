@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from .models import Listing
 
@@ -12,8 +12,8 @@ def all_products(request):
 
 def product_detail(request, product_id):
     product = Listing.objects.get(id=product_id)
-    # return render(request, "product_detail.html", {"product": product})
-    return JsonResponse({"product": product})
+    return render(request, "product.html", {"product": product})
+    # return JsonResponse({"product": product})
 
 def search(request):
     query = request.GET.get('query')
@@ -23,8 +23,8 @@ def search(request):
 
 def category(request, category):
     products = Listing.objects.all().filter(category=category).filter(status="Active").filter(college=request.user.university)
-    # return render(request, "all_products.html", {"products": products})
-    return JsonResponse({"products": products})
+    return render(request, "all_products.html", {"products": products})
+    # return JsonResponse({"products": products})
 
 def condition(request, condition):
     products = Listing.objects.all().filter(condition=condition).filter(status="Active").filter(college=request.user.college)
@@ -59,12 +59,13 @@ def create_product(request):
         image = request.FILES.get('image')
         category = request.POST.get('category')
         condition = request.POST.get('condition')
-        college = request.POST.get('college')
-        product = Listing(name=name, description=description, price=price, image=image, category=category, condition=condition, college=college, user=request.user)
+        college = request.user.university
+        contact = request.POST.get('contact')
+        product = Listing(name=name, description=description, price=price, image=image, category=category, condition=condition, college=college, user=request.user, contact=contact)
         product.save()
-        return render(request, "product_detail.html", {"product": product})
+        return render(request, "product.html", {"product": product})
     else:
-        return render(request, "create_product.html")
+        return render(request, "new_listing.html")
 
 def edit_product(request, product_id):
     product = Listing.objects.get(id=product_id)
@@ -72,14 +73,18 @@ def edit_product(request, product_id):
         product.name = request.POST.get('name')
         product.description = request.POST.get('description')
         product.price = request.POST.get('price')
-        product.image = request.FILES.get('image')
+        if request.FILES.get('image'):
+            product.image = request.FILES.get('image')
         product.category = request.POST.get('category')
         product.condition = request.POST.get('condition')
-        product.college = request.POST.get('college')
         product.save()
-        return render(request, "product_detail.html", {"product": product})
+        return render(request, "product.html", {"product": product})
     else:
-        return render(request, "edit_product.html", {"product": product})
+        product=Listing.objects.get(id=product_id)
+        if product.user == request.user:
+            return render(request, "edit_listing.html", {"product": product})
+        else:
+            return redirect("all_products")
     
 def delete_product(request, product_id):
     product = Listing.objects.get(id=product_id)
