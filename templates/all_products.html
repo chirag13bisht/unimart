@@ -3,27 +3,78 @@
   <script src="https://cdn.tailwindcss.com"></script>
 {% endblock %}
 {% block main %}
-  <div class="text-8xl text-center">All Products</div>
+  <div class="flex justify-center w-full">
+      <div class="flex justify-center w-full">
+
+        <form class="flex items-center w-full justify-evenly gap-x-2" action="" method="POST">
+            {% csrf_token %}
+            <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-gray-100 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-1 py-1 text-center inline-flex items-center m-5" type="button">
+                <svg width="52" height="49" viewBox="0 0 52 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_11_827)">
+                    <path d="M9.20823 11.4537C13.5849 16.7417 21.6666 26.5417 21.6666 26.5417V38.7917C21.6666 39.9146 22.6416 40.8333 23.8332 40.8333H28.1666C29.3582 40.8333 30.3332 39.9146 30.3332 38.7917V26.5417C30.3332 26.5417 38.3932 16.7417 42.7699 11.4537C43.8749 10.1062 42.8566 8.16666 41.0582 8.16666H10.9199C9.12156 8.16666 8.10323 10.1062 9.20823 11.4537Z" fill="black"/>
+                    </g>
+                    <defs>
+                    <clipPath id="clip0_11_827">
+                    <rect width="52" height="49" fill="white"/>
+                    </clipPath>
+                    </defs>
+                    </svg>
+              </button>
+              <!-- Dropdown menu -->
+              <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 mx-5">
+                  <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
+                    <li>
+                      <a href="#" class="block px-4 py-2 hover:bg-gray-100">Electronics</a>
+                    </li>
+                    <li>
+                      <a href="#" class="block px-4 py-2 hover:bg-gray-100">Stationery</a>
+                    </li>
+                    <li>
+                      <a href="#" class="block px-4 py-2 hover:bg-gray-100">Accessories</a>
+                    </li>
+                    <li>
+                      <a href="#" class="block px-4 py-2 hover:bg-gray-100">Others</a>
+                    </li>
+                  </ul>
+              </div>
+          
+            <label for="simple-search" class="sr-only">Search</label>
+            <div class="w-3/4 drop-shadow-xl">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg aria-hidden="true" class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                </div>
+                <input type="text" id="simple-search" class="bg-gray-50 text-gray-900 text-2xl rounded-full focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Search" required>
+            </div>
+            <button type="submit" class="p-2.5 text-2xl font-medium text-white bg-[#F6931C] rounded-full drop-shadow-xl hover:bg-[#e2810c] focus:ring-4 focus:outline-none focus:ring-[#e2810c]">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </button>
+            <a href="/addproduct" class="text-white justify-self-end p-2.5 px-3 text-2xl text-center bg-[#F6931C] rounded-full drop-shadow-xl hover:bg-[#e2810c] focus:ring-4 focus:outline-none focus:ring-[#e2810c]">List your items</a>
+        </form>
+      </div>
+  </div>
+  
+
     <div class="flex flex-wrap m-5">
     {% for i in products %}
 
-    <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <a href="#">
-            <img class="rounded-t-lg" src="/media/{{i.image}}" alt="" />
+    <div class="max-w-sm bg-white border-2 border-[#F6931C] rounded-lg shadow">
+        <a href="/product/{{i.id}}">
+            <img class="rounded-t-lg drop-shadow-xl" src="/media/{{i.image}}" alt="" />
         </a>
         <div class="p-5">
-            <a href="#">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{i.name}}</h5>
+            <a href="/product/{{i.id}}">
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{i.name}}</h5>
             </a>
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{i.description}}</p>
-            <p class="mb-2 font-semibold text-gray-700 dark:text-gray-300">Price: {{i.price}}</p>
-            <p class="mb-2 font-semibold text-gray-700 dark:text-gray-300">Condition: {{i.condition}}</p>
+            <p class="mb-3 font-normal text-gray-700">{{i.description}}</p>
+            <p class="mb-2 font-semibold text-gray-700">Price: {{i.price}}</p>
+            <p class="mb-2 font-semibold text-gray-700">Condition: {{i.condition}}</p>
+            <p class="mb-2 font-semibold text-gray-700 ">Category: {{i.category}}</p>
 
-            <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
+            <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#F6931C] rounded-lg hover:bg-[#e2810c] focus:ring-4 focus:outline-none focus:ring-[#e2810c] ">
                 View
                 <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
             </a>
-            <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
+            <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#F6931C] rounded-lg hover:bg-[#e2810c] focus:ring-4 focus:outline-none focus:ring-[#e2810c]">
                 Buy
                 <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
             </a>
@@ -33,5 +84,5 @@
     {% endfor %}
     </div>
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
 {% endblock %}
