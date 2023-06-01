@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'widget_tweaks',
+    'mart',
 ]
 
 AUTH_USER_MODEL = 'users.User'

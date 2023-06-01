@@ -3,3 +3,4 @@ django-allauth
 psycopg2-binary
 django-allauth-ui
 django-widget-tweaks
+Pillow
