@@ -44,9 +44,8 @@ def set_rejected(self):
 
 
 class waitlistAdmin(admin.ModelAdmin):
-    list_display = ("name", "email", "university", "enrollment_number")
-    ordering = ("name",)
     actions = [set_approved, set_rejected]
 
 
 admin.site.register(User, UserAdmin)
+admin.site.register(waitlist, waitlistAdmin)

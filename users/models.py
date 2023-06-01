@@ -11,7 +11,7 @@ class waitlist(models.Model):
     name = models.CharField(max_length=100, null=True, blank=True)
     enrollment_number = models.CharField(max_length=100, null=True, blank=True)
     email = models.EmailField(max_length=100, null=True, blank=True)
-    university = models.CharField(max_length=100, null=True, blank=True)
+    university = models.CharField(max_length=100, null=True, blank=True, default="Other")
     id_card = models.ImageField(upload_to='id_card/', blank=True)
     def __str__(self):
         return f"{self.name} - {self.university}"
