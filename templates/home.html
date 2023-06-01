@@ -1,8 +1,101 @@
 {% extends 'base.html' %}
 {% block main %}
 
-<div class="text-8xl">
-    Hello World
+<section class="home-container">
+
+    <div class="container">
+        <div class="home-data">
+            <div class="home-content">
+                <div class="home-title text-5xl font-bold">
+                    <h1>Get your things on rent</h1>
+                </div>
+                <div class="home-subtitle">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae placeat reiciendis ratione quod
+                    labore vitae facere similique officiis aut? Dolor dignissimos nihil maxime! Tempore placeat
+                    molestiae culpa perferendis nostrum maxime numquam similique incidunt distinctio! Nisi porro
+                </div>
+                <button class="home-btn">Try Now</button>
+            </div>
+            <div class="home-img">
+                <img src="./assets/back.jpg" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="about about-container">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-data">
+                <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, ad dignissimos. Voluptatem,
+                    excepturi
+                    minima? Eaque nostrum sunt unde illo maiores numquam? Excepturi.</h2>
+            </div>
+            <div class="about-img">
+                <img src="./assets/about.png" alt="">
+            </div>
+        </div>
+    </div>
 </div>
 
+<div class="work work-container">
+    <div class="container">
+        <div class="work-title">
+            <p>How It Works</p>
+        </div>
+        <div class="work-content">
+            <div class="work-box">
+                <img src="./assets/img1.png" alt="">
+                <h3>Verify students status</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro maiores dolores voluptates ipsa,
+                    blanditiis rerum!</p>
+            </div>
+            <div class="work-box">
+                <img src="./assets/img2.png" alt="">
+                <h3>Verify students status</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque beatae nam praesentium eligendi
+                    harum ea.</p>
+            </div>
+            <div class="work-box">
+                <img src="./assets/img3.png" alt="">
+                <h3>Verify students status</h3>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iusto voluptatem, maiores autem
+                    repellat molestiae omnis!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="pta-nhi">
+    <div class="contact contact-container">
+        <div class="container">
+            <div class="contactform">
+                <form class="contact-data">
+                    <h2 class="contact-title">Get In Touch</h2>
+                    <div class="inputbox">
+                        <input type="text" name="name" required="required" />
+                        <span>Name</span>
+                    </div>
+                    <div class="inputbox">
+                        <input type="text" name="email" required="required" />
+                        <span>E-mail</span>
+                    </div>
+                    <div class="inputbox">
+                        <textarea required="required" name="message"></textarea>
+                        <span>Message</span>
+                    </div>
+                    <div class="inputbox">
+                        <input type="submit" value="Send" />
+                    </div>
+                </form>
+                <div class="login-img">
+                    <img src="./assets/login.png" alt="">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <hr size="1" width="100%" color="white">
+    </hr>
+</div>
 {% endblock %}

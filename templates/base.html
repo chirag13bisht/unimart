@@ -1,15 +1,73 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body>
-        {% block main %}
-        {% endblock %}
-    </body>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="index.js"></script>
+    <script src="https://kit.fontawesome.com/812a751827.js" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+</head>
+
+<body>
+
+    <header class="header-container">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-logo">
+                    <img src="./assets/logo.png" alt="">
+                </div>
+                <div class="header-list">
+                    <ul>
+                        <li><a href="">Home</a></li>
+                        <li><a href="">About</a></li>
+                        <li><a href="">Categories</a></li>
+                        <li><a href="">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="header-right">
+                    <div class="cart">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </div>
+                    <button class="header-btn">Sign In</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    {% block main %}
+    {% endblock main %}
+
+
+
+    <footer class="footer-container">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-nav">
+                    <ul>
+                        <li><a href="">Home</a></li>
+                        <li><a href="">About Us</a></li>
+                        <li><a href="">Store</a></li>
+                        <li><a href="">Universities</a></li>
+                        <li><a href="">Blogs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <i class="fa-brands fa-twitter"></i>
+                    <i class="fa-brands fa-instagram"></i>
+                    <i class="fa-brands fa-linkedin"></i>
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div class="copyright">
+                    <p>©2023 | Unimart</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
 </html>
