@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 
 {% block main %}
-<form action="/join_waitlist" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <input type="text" name="email" placeholder="Email">
-    <input type="text" name="name" placeholder="Name">
-    <input type="text" name="university" placeholder="university">
-    <input type="text" name="roll_number" placeholder="roll_number">
-    <input type="file" name="id_card" placeholder="id_card">    
-    <input type="submit" value="Join Waitlist">
-</form>
+<div class="flex justify-center">
+    <form action="/join_waitlist" method="POST" enctype="multipart/form-data" class="">
+        {% csrf_token %}
+        <input type="text" name="email" placeholder="Email" class="border border-2 border-black w-full rounded-xl text-xl p-3 my-3"><br>
+        <input type="text" name="name" placeholder="Name" class="border border-2 border-black w-full rounded-xl text-xl p-3 my-3"><br>
+        <input type="text" name="university" placeholder="university" class="border border-2 w-full border-black rounded-xl text-xl p-3 my-3"><br>
+        <input type="text" name="roll_number" placeholder="roll_number" class="border border-2 w-full border-black rounded-xl text-xl p-3 my-3"><br>
+        <input name="id_card" class="block text-xl border-2 border-black rounded-r-xl cursor-pointer bg-gray-50 text-gray-400 focus:outline-none" aria-describedby="id_card" type="file">
+        <div class="flex justify-center"><input type="submit" value="Join Waitlist" class="text-2xl border-2 border-black p-3 rounded-xl cursor-pointer my-3 hover:bg-gray-200 hover:scale-110 transition-all ease-in-out"></div>
+    </form>
+</div>
 {% endblock main %}
