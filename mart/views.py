@@ -5,8 +5,8 @@ from .models import Listing
 # Create your views here.
 def all_products(request):
     products = Listing.objects.all().filter(status="Active").filter(college=request.user.college)
-    # return render(request, "all_products.html", {"products": products})
-    return JsonResponse({"products": products})
+    return render(request, "all_products.html", {"products": products})
+    # return JsonResponse({"products": products})
 
 
 def product_detail(request, product_id):

@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import home, waitlist_v, waitlist_submit
+from .views import home, waitlist_v, waitlist_submit, about
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -27,7 +27,7 @@ urlpatterns = [
     path('mart/', include('mart.urls')),
     path('waitlist/', waitlist_v, name="waitlist"),
     path('join_waitlist', waitlist_submit, name="waitlist_submit"),
-
+    path('about/', about, name="about"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

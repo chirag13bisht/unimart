@@ -25,3 +25,6 @@ def waitlist_submit(request):
         waitlist_obj = waitlist.objects.create(user=user, name=name, email=email, enrollment_number=roll_number, id_card=image, university=university)
         waitlist_obj.save()
         return HttpResponse("Waitlist submitted successfully")
+    
+def about(request):
+    return render(request, "about.html")

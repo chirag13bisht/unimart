@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block main %}
 
 <section class="home-container">
@@ -17,7 +18,7 @@
                 <button class="home-btn">Try Now</button>
             </div>
             <div class="home-img">
-                <img src="./assets/back.jpg" alt="">
+                <img src="{% static 'assets/back.jpg' %}" alt="">
             </div>
         </div>
     </div>
