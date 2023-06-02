@@ -3,7 +3,7 @@ from users.models import waitlist
 from django.http import HttpResponse
 from mart.models import Listing
 from rental.models import Rental_Listing
-
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     return render(request, "home.html")
@@ -31,9 +31,9 @@ def waitlist_submit(request):
 def about(request):
     return render(request, "about.html")
 
+
+@login_required
 def profile(request):
-    if request.user.university==None:
-        request.user.college = request.user.u
     all_products = Listing.objects.filter(user=request.user).filter(status="Active")
     all_rentals = Rental_Listing.objects.filter(user=request.user).filter(status="Active")
     return render(request, "profile.html", {'products': all_products, 'rentals': all_rentals})

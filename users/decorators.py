@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.shortcuts import redirect
 
 
-def authentication_not_required(view_func):
+def waitlist(view_func):
     @functools.wraps(view_func)
     def wrapper(request, *args, **kwargs):
         if request.user.college == "Other":

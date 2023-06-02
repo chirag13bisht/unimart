@@ -1,46 +1,59 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from .models import Listing
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
+@login_required
 def all_products(request):
     products = Listing.objects.all().filter(status="Active").filter(college=request.user.university)
     # products = Listing.objects.all().filter(status="Active")
     return render(request, "all_products.html", {"products": products})
     # return JsonResponse({"products": products})
 
-
+@login_required
 def product_detail(request, product_id):
     product = Listing.objects.get(id=product_id)
     return render(request, "product.html", {"product": product})
     # return JsonResponse({"product": product})
 
+
+@login_required
 def search(request):
     query = request.GET.get('query')
     products = Listing.objects.all().filter(name__icontains=query).filter(status="Active").filter(college=request.user.university)
     return render(request, "all_products.html", {"products": products})
     # return JsonResponse({"products": products})
 
+
+@login_required
 def category(request, category):
     products = Listing.objects.all().filter(category=category).filter(status="Active").filter(college=request.user.university)
     return render(request, "all_products.html", {"products": products})
     # return JsonResponse({"products": products})
 
+
+@login_required
 def condition(request, condition):
     products = Listing.objects.all().filter(condition=condition).filter(status="Active").filter(college=request.user.college)
     # return render(request, "all_products.html", {"products": products})
     return JsonResponse({"products": products})
 
+
+@login_required
 def college(request, college):
     products = Listing.objects.all().filter(college=college).filter(status="Active")
     # return render(request, "all_products.html", {"products": products})
     return JsonResponse({"products": products})
 
+
+@login_required
 def my_products(request):
     products = Listing.objects.all().filter(user=request.user)
     # return render(request, "my_products.html", {"products": products})
     return JsonResponse({"products": products})
 
+
+@login_required
 def sold_products(request):
     products = Listing.objects.all().filter(user=request.user).filter(status="Sold")
     # return render(request, "sold_products.html", {"products": products})
@@ -51,6 +64,8 @@ def expired_products(request):
     # return render(request, "expired_products.html", {"products": products})
     return JsonResponse({"products": products})
 
+
+@login_required
 def create_product(request):
     if request.method == "POST":
         name = request.POST.get('name')
@@ -67,6 +82,8 @@ def create_product(request):
     else:
         return render(request, "new_listing.html")
 
+
+@login_required
 def edit_product(request, product_id):
     product = Listing.objects.get(id=product_id)
     if request.method == "POST":
@@ -85,13 +102,15 @@ def edit_product(request, product_id):
             return render(request, "edit_listing.html", {"product": product})
         else:
             return redirect("all_products")
-    
+
+@login_required
 def delete_product(request, product_id):
     product = Listing.objects.get(id=product_id)
     product.delete()
     products = Listing.objects.all().filter(user=request.user)
     return render(request, "my_products.html", {"products": products})
 
+@login_required
 def sold_product(request, product_id):
     product = Listing.objects.get(id=product_id)
     product.status = "Sold"
@@ -99,6 +118,8 @@ def sold_product(request, product_id):
     products = Listing.objects.all().filter(user=request.user)
     return render(request, "my_products.html", {"products": products})
 
+
+@login_required
 def expired_product(request, product_id):
     product = Listing.objects.get(id=product_id)
     product.status = "Expired"
@@ -106,6 +127,8 @@ def expired_product(request, product_id):
     products = Listing.objects.all().filter(user=request.user)
     return render(request, "my_products.html", {"products": products})
 
+
+@login_required
 def active_product(request, product_id):
     product = Listing.objects.get(id=product_id)
     product.status = "Active"
@@ -113,6 +136,8 @@ def active_product(request, product_id):
     products = Listing.objects.all().filter(user=request.user)
     return render(request, "my_products.html", {"products": products})
 
+
+@login_required
 def mark_as_sold(request, product_id):
     product = Listing.objects.get(id=product_id)
     if product.user != request.user:

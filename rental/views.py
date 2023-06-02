@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Rental_Listing
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
+@login_required
 def all_listings(request):
     listings = Rental_Listing.objects.all().filter(college=request.user.university)
     context = {
@@ -9,6 +10,8 @@ def all_listings(request):
     }
     return render(request, "rental/all_products.html", context)
 
+
+@login_required
 def product(request, id):
     listing = Rental_Listing.objects.get(id=id)
     context = {
@@ -16,6 +19,8 @@ def product(request, id):
     }
     return render(request, "rental/product.html", context)
 
+
+@login_required
 def search(request):
     if request.method == "POST":
         query = request.POST.get("search")
@@ -27,6 +32,8 @@ def search(request):
     else:
         return render(request, "search.html")
     
+
+@login_required
 def category(request, category):
     listings = Rental_Listing.objects.filter(category=category).filter(college=request.user.university)
     context = {
@@ -34,6 +41,7 @@ def category(request, category):
     }
     return render(request, "rental/all_products.html", context)
 
+@login_required
 def college(request, college):
     listings = Rental_Listing.objects.filter(college=college)
     context = {
@@ -41,6 +49,8 @@ def college(request, college):
     }
     return render(request, "college.html", context)
 
+
+@login_required
 def condition(request, condition):
     listings = Rental_Listing.objects.filter(condition=condition).filter(college=request.user.university)
     context = {
@@ -48,6 +58,8 @@ def condition(request, condition):
     }
     return render(request, "rental/product.html", context)   
 
+
+@login_required
 def add_listing(request):
     if request.method == "POST":
         name = request.POST.get("name")
@@ -64,6 +76,8 @@ def add_listing(request):
     else:
         return render(request, "rental/new_listing.html")
     
+
+@login_required
 def edit_listing(request, id):
     listing = Rental_Listing.objects.get(id=id)
     if request.user == listing.user:
@@ -85,7 +99,7 @@ def edit_listing(request, id):
     else:
         return render(request, "rental/product.html", {"product": listing})
 
-
+@login_required
 def rented_product(request, id):
     listing = Rental_Listing.objects.get(id=id)
     if request.user == listing.user:
