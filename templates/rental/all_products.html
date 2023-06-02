@@ -23,16 +23,16 @@
               <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 mx-5">
                   <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
                     <li>
-                      <a href="/mart/category/Electronics" class="block px-4 py-2 hover:bg-gray-100">Electronics</a>
+                      <a href="/rental/category/Electronics" class="block px-4 py-2 hover:bg-gray-100">Electronics</a>
                     </li>
                     <li>
-                      <a href="/mart/category/Stationery" class="block px-4 py-2 hover:bg-gray-100">Stationery</a>
+                      <a href="/rental/category/Stationery" class="block px-4 py-2 hover:bg-gray-100">Stationery</a>
                     </li>
                     <li>
-                      <a href="/mart/category/Accessories" class="block px-4 py-2 hover:bg-gray-100">Accessories</a>
+                      <a href="/rental/category/Accessories" class="block px-4 py-2 hover:bg-gray-100">Accessories</a>
                     </li>
                     <li>
-                      <a href="/mart/category/Others" class="block px-4 py-2 hover:bg-gray-100">Others</a>
+                      <a href="/rental/category/Others" class="block px-4 py-2 hover:bg-gray-100">Others</a>
                     </li>
                   </ul>
               </div>
@@ -47,7 +47,7 @@
             <button type="submit" class="p-2.5 text-2xl font-medium text-white bg-[#F6931C] rounded-full drop-shadow-xl hover:bg-[#e2810c] focus:ring-4 focus:outline-none focus:ring-[#e2810c]">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </button>
-            <a href="/mart/create_product" class="text-white justify-self-end p-2.5 px-3 text-2xl text-center bg-[#F6931C] rounded-full drop-shadow-xl hover:bg-[#e2810c] focus:ring-4 focus:outline-none focus:ring-[#e2810c]">List your items</a>
+            <a href="/rental/create_product" class="text-white justify-self-end p-2.5 px-3 text-2xl text-center bg-[#F6931C] rounded-full drop-shadow-xl hover:bg-[#e2810c] focus:ring-4 focus:outline-none focus:ring-[#e2810c]">List your items</a>
         </form>
       </div>
   </div>
@@ -58,25 +58,22 @@
     {% for i in products %}
 
     <div class="max-w-sm bg-white border-2 border-[#F6931C] rounded-lg shadow mx-5">
-        <a href="/mart/product/{{i.id}}">
+        <a href="/rental/product/{{i.id}}">
             <img class="rounded-t-lg drop-shadow-xl" src="/media/{{i.image}}" alt="" />
         </a>
         <div class="p-5">
-            <a href="/mart/product/{{i.id}}">
+            <a href="/rental/product/{{i.id}}">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{i.name}}</h5>
             </a>
-            <p class="mb-2 font-semibold text-gray-700">Price: ₹{{i.price}}</p>
+            <p class="mb-2 font-semibold text-gray-700">Price: {{i.price}}</p>
             <p class="mb-2 font-semibold text-gray-700">Condition: {{i.condition}}</p>
             <p class="mb-2 font-semibold text-gray-700 ">Category: {{i.category}}</p>
 
-            <a href="/mart/product/{{i.id}}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#F6931C] rounded-lg hover:bg-[#e2810c] focus:ring-4 focus:outline-none focus:ring-[#e2810c] ">
+            <a href="/rental/product/{{i.id}}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#F6931C] rounded-lg hover:bg-[#e2810c] focus:ring-4 focus:outline-none focus:ring-[#e2810c] ">
                 View
                 <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
             </a>
-            {% comment %} <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-[#F6931C] rounded-lg hover:bg-[#e2810c] focus:ring-4 focus:outline-none focus:ring-[#e2810c]">
-                Buy
-                <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-            </a> {% endcomment %}
+
         </div>
     </div>   
 

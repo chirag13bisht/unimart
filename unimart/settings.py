@@ -47,10 +47,13 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'widget_tweaks',
     'mart',
+    'rental',
 ]
 
 AUTH_USER_MODEL = 'users.User'
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_EMAIL_REQUIRED = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

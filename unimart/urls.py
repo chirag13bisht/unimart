@@ -16,15 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import home, waitlist_v, waitlist_submit, about
+from .views import home, waitlist_v, waitlist_submit, about, profile
 from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
     path('', home, name="home"),
     path('admin/', admin.site.urls),
+    path('accounts/profile/', profile, name="profile"),
     path('accounts/', include('allauth.urls')),
     path('mart/', include('mart.urls')),
+    path('rental/', include('rental.urls')),
     path('waitlist/', waitlist_v, name="waitlist"),
     path('join_waitlist', waitlist_submit, name="waitlist_submit"),
     path('about/', about, name="about"),

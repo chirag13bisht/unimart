@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block head %}
+  <script src="https://cdn.tailwindcss.com"></script>
+{% endblock %}
+{% block main %}
+  <div class="flex justify-center">
+    <form class="w-1/2 my-10 bg-white border-2 drop-shadow drop-shadow-[#F6931C] border-[#F6931C] p-5 rounded-xl" enctype="multipart/form-data" method="POST">
+      {% csrf_token %}
+      <div class="text-center text-2xl font-bold">Edit your product listing</div>
+      <div class="relative z-0 w-full mb-6 group">
+        <input type="text" name="name" id="name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-[#f7d1a3] appearance-none focus:outline-none focus:ring-0 focus:border-[#F6931C] peer" placeholder=" " required value="{{product.name}}"/>
+        <label for="name" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-[#F6931C] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Enter Product Name</label>
+      </div>
+      <div class="relative z-0 w-full mb-6 group">
+        <textarea type="text" name="description" id="description" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-[#f7d1a3] appearance-none focus:outline-none focus:ring-0 focus:border-[#F6931C] peer" placeholder=" " required> {{product.description}} </textarea>
+        <label for="description" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-[#F6931C] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Enter Product Description</label>
+      </div>
+      <div class="relative z-0 w-full mb-6 group">
+        <label class="block mb-2 text-sm font-medium text-gray-500" for="file_input">Upload new file</label>
+        <input class="block w-full p-2 text-sm text-gray-900 border border-[#f7d1a3] rounded-lg cursor-pointer bg-[#F6931C] focus:outline-none" id="file_input" type="file" name="image" />
+      </div>
+
+      <div class="relative z-0 w-full mb-6 group">
+        <input type="text" name="price" id="price" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-[#f7d1a3] appearance-none focus:outline-none focus:ring-0 focus:border-[#F6931C] peer" placeholder=" " required value="{{product.price}}"/>
+        <label for="price" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-[#F6931C] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Enter Product Price</label>
+      </div>
+      <div class="relative z-0 w-full mb-6 group">
+        <select name="category" id="category" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-[#f7d1a3] appearance-none focus:outline-none focus:ring-0 focus:border-[#F6931C] peer" placeholder=" " required value="{{product.category}}">
+          <option value="Electronics" {% if product.category == 'Electronics'%}selected{% endif %}>Electronics</option>
+          <option value="Stationery" {% if product.category == 'Stationery'%}selected{% endif %}>Stationery</option>
+          <option value="Accessories" {% if product.category == 'Accessories'%}selected{% endif %}>Accessories</option>
+          <option value="Others" {% if product.category == 'Others'%}selected{% endif %}>Others</option>
+        </select>
+        <label for="category" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-[#F6931C] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Select Product Category</label>
+      </div>
+
+      <div class="relative z-0 w-full mb-6 group">
+        <select name="condition" id="condition" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-[#f7d1a3] appearance-none focus:outline-none focus:ring-0 focus:border-[#F6931C] peer" placeholder=" " required value="{{product.condition}}">
+          <option value="New" {% if product.condition == 'New'%}selected{% endif %}>New</option>
+          <option value="Almost New" {% if product.condition == 'Almost New'%}selected{% endif %}>Almost New</option>
+          <option value="Okayish" {% if product.condition == 'Okayish'%}selected{% endif %}>Okayish</option>
+          <option value="Used" {% if product.condition == 'Used'%}selected{% endif %}>Used</option>
+          <option value="Very Used" {% if product.condition == 'Very used'%}selected{% endif %}>Very used</option>
+        </select>
+        <label for="condition" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-[#F6931C] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Select Product Condition</label>
+      </div>
+      <div class="relative z-0 w-full mb-6 group">
+        <input type="number" name="contact" id="contact" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-[#f7d1a3] appearance-none focus:outline-none focus:ring-0 focus:border-[#F6931C] peer" placeholder=" " required value="{{product.contact}}"/>
+        <label for="contact" class="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-[#F6931C] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Enter your contact number</label>
+      </div>
+      <div class="flex justify-center">
+        <button type="submit" class="text-white bg-[#F6931C] hover:[#f28605] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Edit</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}
