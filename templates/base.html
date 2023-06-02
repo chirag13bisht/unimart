@@ -11,7 +11,7 @@
     <script defer src="/static/index.js"></script>
     <script src="https://kit.fontawesome.com/812a751827.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <script src="https://cdn.tailwindcss.com"></script>
     {% block head %}
     {% endblock head %}
 </head>
@@ -22,22 +22,40 @@
         <div class="container">
             <div class="header-content">
                 <div class="header-logo">
-                    <img src="{% static 'assets/logo.png' %}" alt="">
+                    <a href="/"><img src="{% static 'assets/logo.png' %}" alt=""></a>
                 </div>
                 <div class="header-list">
                     <ul>
-                        <li><a href="">Home</a></li>
-                        <li><a href="">About</a></li>
-                        <li><a href="">Categories</a></li>
-                        <li><a href="">Contact</a></li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/mart/">Products</a></li>
+                        <li><a href="/rental">Rental</a></li>
                     </ul>
                 </div>
+                {% if user.is_authenticated %}
                 <div class="header-right">
-                    <div class="cart">
-                        <i class="fa-solid fa-cart-shopping"></i>
+
+                    <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm text-center inline-flex items-center w-10 h-10" type="button">
+                        <img src="https://source.boringavatars.com/beam/512/{{user.username}}" class="w-10 h-10">
+                    </button>
+                    <!-- Dropdown menu -->
+                    <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 border-2 border-[#F6931C]">
+                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                          <li>
+                            <a href="/accounts/profile" class="block px-4 py-2 hover:bg-gray-100 text-black">Profile</a>
+                          </li>
+                          <li>
+                            <a href="/accounts/logout" class="block px-4 py-2 hover:bg-gray-100 text-black">Signout</a>
+                          </li>
+                        </ul>
                     </div>
+                    
+                </div>
+                {% else %}
+                <div class="header-right">
                     <button class="header-btn">Sign In</button>
                 </div>
+                {% endif %}
             </div>
         </div>
     </header>
@@ -71,6 +89,7 @@
             </div>
         </div>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
 
 </body>
 </html>
