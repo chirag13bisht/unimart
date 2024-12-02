@@ -63,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware', 
 ]
 
 ROOT_URLCONF = 'unimart.urls'
@@ -96,14 +97,14 @@ WSGI_APPLICATION = 'unimart.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-  'default': {
-    'ENGINE': 'django.db.backends.postgresql',
-    'NAME': 'neondb',
-    'USER': os.getenv('DB_USER'),
-    'PASSWORD': os.getenv('DB_PASSWORD'),
-    'HOST': os.getenv('DB_HOST'),
-    'PORT': '5432',
-  }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',  # Replace with your DB name
+        'USER': 'postgres',       # Replace with your PostgreSQL username
+        'PASSWORD': 'Unimart@123',   # Replace with your PostgreSQL password
+        'HOST': 'localhost',           # Or use the IP address if needed
+        'PORT': '5432',                # Default PostgreSQL port
+    }
 }
 
 SITE_ID = 1
