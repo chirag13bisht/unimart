@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Unimart</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <script defer src="/static/index.js"></script>
     <script src="https://kit.fontawesome.com/812a751827.js" crossorigin="anonymous"></script>
@@ -33,24 +33,54 @@
                     </ul>
                 </div>
                 {% if user.is_authenticated %}
+                
                 <div class="header-right">
 
-                    <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm text-center inline-flex items-center w-10 h-10" type="button">
-                        <img src="https://source.boringavatars.com/beam/512/{{user.username}}" class="w-10 h-10">
+                    <button id="notification-button" data-dropdown-toggle="notification-dropdown" class="relative text-black focus:outline-none" type="button">
+                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path></svg>
+                        
+                        {% if unread_count > 0 %}
+                        <span class="absolute top-0 right-0 block h-3 w-3 rounded-full bg-red-500 border-2 border-white"></span>
+                        {% endif %}
                     </button>
-                    <!-- Dropdown menu -->
+                    
+                    <div id="notification-dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-80 border-2 border-[#F6931C]">
+                        <div class="block px-4 py-2 font-medium text-center text-gray-700 rounded-t-lg bg-gray-50">
+                            Notifications
+                        </div>
+                        <div class="divide-y divide-gray-100">
+                            {% for notification in unread_notifications %}
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-100">
+                                    <p class="text-sm text-gray-700">{{ notification.message }}</p>
+                                    <p class="text-xs text-blue-500">{{ notification.created_at|timesince }} ago</p>
+                                </a>
+                            {% empty %}
+                                <div class="px-4 py-3 text-center text-sm text-gray-500">
+                                    You have no new notifications.
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="focus:outline-none" type="button">
+                        <img src="https://source.boringavatars.com/beam/512/{{user.username}}" class="w-10 h-10 rounded-full">
+                    </button>
+                    
                     <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 border-2 border-[#F6931C]">
-                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                          <li>
-                            <a href="/accounts/profile" class="block px-4 py-2 hover:bg-gray-100 text-black">Profile</a>
-                          </li>
-                          <li>
-                            <a href="/accounts/logout" class="block px-4 py-2 hover:bg-gray-100 text-black">Signout</a>
-                          </li>
+                        <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
+                            <li>
+                                <a href="/accounts/profile" class="block px-4 py-2 hover:bg-gray-100 text-black">Profile</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'recommendations' %}" class="block px-4 py-2 hover:bg-gray-100 text-black">Recommended</a>
+                            </li>
+                            <li>
+                                <a href="/accounts/logout" class="block px-4 py-2 hover:bg-gray-100 text-black">Signout</a>
+                            </li>
                         </ul>
                     </div>
                     
                 </div>
+                
                 {% else %}
                 <div class="header-right">
                     <a href="/accounts/login"><button class="header-btn">Sign In</button></a>
@@ -63,18 +93,16 @@
     {% block main %}
     {% endblock main %}
 
-
-
     <footer class="footer-container">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-nav">
                     <ul>
-                        <li class="list1"><a href="" >Home</a></li>
-                        <li class="list2"><a href="" >About Us</a></li>
-                        <li class="list3"><a href="" >Store</a></li>
-                        <li class="list4"><a href="" >Universities</a></li>
-                        <li class="list5"><a href="" >Blogs</a></li>
+                        <li class="list1"><a href="/">Home</a></li>
+                        <li class="list2"><a href="/about">About Us</a></li>
+                        <li class="list3"><a href="/mart/">Store</a></li>
+                        <li class="list4"><a href="#">Universities</a></li>
+                        <li class="list5"><a href="#">Blogs</a></li>
                     </ul>
                 </div>
                 <div class="footer-social">
@@ -89,7 +117,110 @@
             </div>
         </div>
     </footer>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
+    
+    <div class="chat-bubble" onclick="toggleChatWindow()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+    </div>
 
+    <div class="chat-window" id="chat-window">
+        <div class="chat-header">
+            <strong>Unimart Assistant</strong>
+            <button onclick="toggleChatWindow()">−</button>
+        </div>
+        <div class="chat-body" id="chat-body">
+            <div class="chat-message bot">
+                Hi! How can I help you find, sell, or trade today?
+            </div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chat-input" placeholder="Ask a question..." onkeydown="handleChatInput(event)">
+        </div>
+    </div>
+    
+    <script>
+    // Get references to our chat elements
+    const chatWindow = document.getElementById('chat-window');
+    const chatBody = document.getElementById('chat-body');
+    const chatInput = document.getElementById('chat-input');
+    
+    // Toggle the chat window's visibility
+    function toggleChatWindow() {
+        chatWindow.classList.toggle('visible');
+    }
+
+    // Handle key press in the input
+    function handleChatInput(event) {
+        if (event.key === 'Enter' && chatInput.value.trim() !== '') {
+            sendMessage();
+        }
+    }
+
+    // Main function to send a message
+    async function sendMessage() {
+        const message = chatInput.value;
+        appendMessage(message, 'user');
+        chatInput.value = '';
+
+        try {
+            const response = await fetch('/api/query/', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}' 
+                },
+                body: JSON.stringify({ message: message })
+            });
+            
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            
+            const data = await response.json();
+            const botReply = getBotReply(data);
+            appendMessage(botReply, 'bot');
+
+        } catch (error) {
+            console.error('Error:', error);
+            appendMessage('Sorry, I had trouble connecting. Please try again.', 'bot');
+        }
+    }
+
+    // This function adds a new message to the chat window
+    function appendMessage(message, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('chat-message', sender);
+        messageDiv.textContent = message;
+        chatBody.appendChild(messageDiv);
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    // This function decides what to say based on the API response
+    function getBotReply(data) {
+        if (data.intent === 'find_item') {
+            let reply = "Okay, I'm looking for items";
+            if (data.entities.length > 0) {
+                reply += ` related to "${data.entities[0].text}"!`;
+            } else {
+                reply += "...";
+            }
+            return reply;
+        }
+        
+        if (data.intent === 'greet') {
+            return "Hi there! How can I help?";
+        }
+
+        if (data.intent === 'sell_item') {
+            return "To sell an item, just click the 'Sell' button in the header!";
+        }
+
+        // Default fallback
+        return "I'm still learning, but I've noted your request!";
+    }
+    </script>
 </body>
 </html>

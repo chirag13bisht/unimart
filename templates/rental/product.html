@@ -24,8 +24,48 @@
       <div class="text-2xl font-bold">Product Description</div>
       <p class="p-5 rounded-xl bg-[#FDEDCF]">{{ product.description }}</p>
       <div class="flex justify-center py-5">
-        <a href="https://wa.me/91{{product.contact}}?text=Hello%2C%20I%20want%20to%20enquire%20about%20the%20product%3A%20{{product.name}}%2C%20that%20you%20listed%20on%20Unimart.%20I'm%20interested%20in%20renting%20it."><button class="px-4 text-xl py-2 rounded-xl bg-[#F6931C]">Inquire Now</button></a>
-      </div>
+        
+        <button 
+          id="inquire-btn"
+          class="px-4 text-xl py-2 rounded-xl bg-[#F6931C]"
+          data-model-type="rental"
+          data-product-id="{{ product.id }}"
+          data-whatsapp-url="https://wa.me/91{{product.contact}}?text=Hello%2C%20I%20want%20to%20enquire%20about%20the%20product%3A%20{{product.name}}%2C%20that%20you%20listed%20on%20Unimart.%20I'm%20interested%20in%20renting%20it."
+        >
+          Inquire Now
+        </button>
+
+        </div>
     </div>
   </div>
+
+  <script>
+    // Find the button by its ID
+    const inquireButton = document.getElementById('inquire-btn');
+
+    // Add a click listener
+    inquireButton.addEventListener('click', async function() {
+      // Get all the data we stored on the button
+      const modelType = this.dataset.modelType;
+      const productId = this.dataset.productId;
+      const whatsappUrl = this.dataset.whatsappUrl;
+
+      // Show a loading state
+      this.textContent = 'Logging event...';
+      this.disabled = true;
+
+      try {
+        // 1. Call our new API to log the "inquire" event
+        // We use await to make sure this finishes before we continue
+        await fetch(`/api/log_inquiry/${modelType}/${productId}/`);
+
+      } catch (error) {
+        console.error('Error logging inquiry:', error);
+        // Even if logging fails, we should still send the user to WhatsApp
+      }
+
+      // 2. After the API call is done, redirect the user to WhatsApp
+      window.location.href = whatsappUrl;
+    });
+  </script>
 {% endblock %}

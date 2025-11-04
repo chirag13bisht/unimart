@@ -3,9 +3,16 @@ from django.http import JsonResponse
 from .models import Listing
 from django.contrib.auth.decorators import login_required
 
+# --- NEW IMPORTS ---
+from .forms import ListingForm  # Import the new form
+from .tasks import process_product_image # Import the Celery task
+
+from recommender.models import UserEvent
+from django.contrib.contenttypes.models import ContentType
+
 @login_required
 def all_products(request):
-    products = Listing.objects.all().filter(status="Active").filter(college=request.user.university)
+    products = Listing.objects.all().filter(status="active").filter(college=request.user.university)
     # products = Listing.objects.all().filter(status="Active")
     return render(request, "all_products.html", {"products": products})
     # return JsonResponse({"products": products})
@@ -13,6 +20,16 @@ def all_products(request):
 @login_required
 def product_detail(request, product_id):
     product = Listing.objects.get(id=product_id)
+
+    # --- START NEW CODE ---
+    # Log the "view" event for the recommender system
+    UserEvent.objects.create(
+        user=request.user,
+        event_type='view',
+        content_object=product  # This links to the Listing object
+    )
+    # --- END NEW CODE ---
+
     return render(request, "product.html", {"product": product})
     # return JsonResponse({"product": product})
 
@@ -20,28 +37,30 @@ def product_detail(request, product_id):
 @login_required
 def search(request):
     query = request.GET.get('query')
-    products = Listing.objects.all().filter(name__icontains=query).filter(status="Active").filter(college=request.user.university)
+    products = Listing.objects.all().filter(name__icontains=query).filter(status="active").filter(college=request.user.university)
     return render(request, "all_products.html", {"products": products})
     # return JsonResponse({"products": products})
 
 
 @login_required
 def category(request, category):
-    products = Listing.objects.all().filter(category=category).filter(status="Active").filter(college=request.user.university)
+    products = Listing.objects.all().filter(category=category).filter(status="active").filter(college=request.user.university)
     return render(request, "all_products.html", {"products": products})
     # return JsonResponse({"products": products})
 
 
 @login_required
 def condition(request, condition):
-    products = Listing.objects.all().filter(condition=condition).filter(status="Active").filter(college=request.user.college)
+    # --- BUG FIX ---
+    # Changed request.user.college to request.user.university to match your other views
+    products = Listing.objects.all().filter(condition=condition).filter(status="active").filter(college=request.user.university)
     # return render(request, "all_products.html", {"products": products})
     return JsonResponse({"products": products})
 
 
 @login_required
 def college(request, college):
-    products = Listing.objects.all().filter(college=college).filter(status="Active")
+    products = Listing.objects.all().filter(college=college).filter(status="active")
     # return render(request, "all_products.html", {"products": products})
     return JsonResponse({"products": products})
 
@@ -55,32 +74,46 @@ def my_products(request):
 
 @login_required
 def sold_products(request):
-    products = Listing.objects.all().filter(user=request.user).filter(status="Sold")
+    products = Listing.objects.all().filter(user=request.user).filter(status="sold")
     # return render(request, "sold_products.html", {"products": products})
     return JsonResponse({"products": products})
 
 def expired_products(request):
-    products = Listing.objects.all().filter(user=request.user).filter(status="Expired")
+    products = Listing.objects.all().filter(user=request.user).filter(status="expired")
     # return render(request, "expired_products.html", {"products": products})
     return JsonResponse({"products": products})
 
 
+# --- THIS VIEW IS COMPLETELY UPDATED ---
 @login_required
 def create_product(request):
     if request.method == "POST":
-        name = request.POST.get('name')
-        description = request.POST.get('description')
-        price = request.POST.get('price')
-        image = request.FILES.get('image')
-        category = request.POST.get('category')
-        condition = request.POST.get('condition')
-        college = request.user.university
-        contact = request.POST.get('contact')
-        product = Listing(name=name, description=description, price=price, image=image, category=category, condition=condition, college=college, user=request.user, contact=contact)
-        product.save()
-        return render(request, "product.html", {"product": product})
+        # 1. Use the new ListingForm
+        form = ListingForm(request.POST, request.FILES)
+        if form.is_valid():
+            # 2. Save the form but don't commit to DB yet
+            product = form.save(commit=False)
+            
+            # 3. Add the data the form didn't have
+            product.user = request.user
+            product.college = request.user.university
+            # The status will be 'processing' by default from your model
+            
+            # 4. Now save to get an ID
+            product.save()
+            
+            # 5. --- CALL THE AI TASK ---
+            # Send the new product's ID to your Celery worker
+            process_product_image.delay(product.id)
+            
+            # 6. Redirect to the profile/my_products page
+            # The user can watch for the product to appear
+            return redirect("profile") # 'profile' is used in your mark_as_sold view
     else:
-        return render(request, "new_listing.html")
+        # For a GET request, just show the blank form
+        form = ListingForm()
+        
+    return render(request, "new_listing.html", {"form": form})
 
 
 @login_required

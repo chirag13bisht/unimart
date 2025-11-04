@@ -1,0 +1,130 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500,700);
+
+/* Full page background and centering */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  /* A simple, clean, light gray background */
+  background-color: #f0f2f5;
+  
+  /* Center everything */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* This is the responsive container for the form */
+.login-page {
+  width: 100%;
+  max-width: 420px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Logo container */
+.logo-container {
+  text-align: center;
+  margin-bottom: 24px;
+}
+.logo-container img {
+  width: 150px;
+  height: auto;
+}
+
+/* The main form card */
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  padding: 32px;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Form header (LOGIN, SIGNUP) */
+.login-header h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: 600;
+  font-size: 24px;
+}
+.login-header p {
+  margin-bottom: 24px;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Error messages */
+.login-header .error {
+  color: #d93025;
+  font-weight: 500;
+  font-size: 13px;
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #fbeae9;
+  border-radius: 8px;
+  border: 1px solid #d93025;
+}
+
+/* Form fields */
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f7f7f7;
+  width: 100%;
+  border: 1px solid #ddd;
+  margin-bottom: 16px;
+  padding: 14px;
+  box-sizing: border-box;
+  font-size: 14px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.form input:focus {
+  border-color: #4CAF50; 
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+  background: #fff;
+}
+
+/* Button */
+.form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form button:hover, .form button:focus {
+  background: #43A047;
+}
+
+/* Links */
+.form .message {
+  margin: 20px 0 0;
+  color: #888;
+  font-size: 13px;
+}
+.form .message a {
+  color: #4CAF50;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+.form .message a:hover {
+  color: #43A047;
+}

@@ -3,6 +3,7 @@ from django.db import models
 
 class User(AbstractUser):
     university = models.CharField(max_length=100, null=True, blank=True)
+    course = models.CharField(max_length=100, blank=True, null=True)
 
 
 

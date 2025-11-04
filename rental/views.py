@@ -2,9 +2,17 @@ from django.shortcuts import render, redirect
 from .models import Rental_Listing
 from django.contrib.auth.decorators import login_required
 
+# --- NEW IMPORTS ---
+from .forms import RentalListingForm
+from .tasks import process_rental_image
+
+from recommender.models import UserEvent
+from django.contrib.contenttypes.models import ContentType
+
 @login_required
 def all_listings(request):
-    listings = Rental_Listing.objects.all().filter(college=request.user.university)
+    # Added filter for status='Active' to hide processing items
+    listings = Rental_Listing.objects.all().filter(college=request.user.university, status='Active')
     context = {
         "products": listings
     }
@@ -14,6 +22,16 @@ def all_listings(request):
 @login_required
 def product(request, id):
     listing = Rental_Listing.objects.get(id=id)
+
+    # --- START NEW CODE ---
+    # Log the "view" event for the recommender system
+    UserEvent.objects.create(
+        user=request.user,
+        event_type='view',
+        content_object=listing  # This links to the Rental_Listing object
+    )
+    # --- END NEW CODE ---
+
     context = {
         "product": listing
     }
@@ -24,7 +42,8 @@ def product(request, id):
 def search(request):
     if request.method == "POST":
         query = request.POST.get("search")
-        listings = Rental_Listing.objects.filter(name__icontains=query)
+        # Added filter for status='Active'
+        listings = Rental_Listing.objects.filter(name__icontains=query, college=request.user.university, status='Active')
         context = {
             "listings": listings
         }
@@ -35,7 +54,8 @@ def search(request):
 
 @login_required
 def category(request, category):
-    listings = Rental_Listing.objects.filter(category=category).filter(college=request.user.university)
+    # Added filter for status='Active'
+    listings = Rental_Listing.objects.filter(category=category, college=request.user.university, status='Active')
     context = {
         "products": listings
     }
@@ -43,7 +63,8 @@ def category(request, category):
 
 @login_required
 def college(request, college):
-    listings = Rental_Listing.objects.filter(college=college)
+    # Added filter for status='Active'
+    listings = Rental_Listing.objects.filter(college=college, status='Active')
     context = {
         "listings": listings
     }
@@ -52,29 +73,44 @@ def college(request, college):
 
 @login_required
 def condition(request, condition):
-    listings = Rental_Listing.objects.filter(condition=condition).filter(college=request.user.university)
+    # Added filter for status='Active'
+    listings = Rental_Listing.objects.filter(condition=condition, college=request.user.university, status='Active')
     context = {
         "products": listings
     }
-    return render(request, "rental/product.html", context)   
+    # Changed template to all_products.html to match other filter views
+    return render(request, "rental/all_products.html", context)   
 
 
+# --- THIS VIEW IS COMPLETELY UPDATED ---
 @login_required
 def add_listing(request):
     if request.method == "POST":
-        name = request.POST.get("name")
-        description = request.POST.get("description")
-        price = request.POST.get("price")
-        image = request.FILES.get("image")
-        category = request.POST.get("category")
-        condition = request.POST.get("condition")
-        contact = request.POST.get("contact")
-        college = request.user.university
-        listing = Rental_Listing.objects.create(name=name, description=description, price=price, image=image, category=category, condition=condition, contact=contact, college=college, user=request.user)
-        listing.save()
-        return render(request, "rental/product.html", {"product": listing})
+        # 1. Use the new RentalListingForm
+        form = RentalListingForm(request.POST, request.FILES)
+        if form.is_valid():
+            # 2. Save the form but don't commit to DB yet
+            listing = form.save(commit=False)
+            
+            # 3. Add the data the form didn't have
+            listing.user = request.user
+            listing.college = request.user.university
+            # The status will be 'processing' by default from your model
+            
+            # 4. Now save to get an ID
+            listing.save()
+            
+            # 5. --- CALL THE AI TASK ---
+            # Send the new listing's ID to your Celery worker
+            process_rental_image.delay(listing.id)
+            
+            # 6. Redirect to the profile
+            return redirect("profile")
     else:
-        return render(request, "rental/new_listing.html")
+        # For a GET request, just show the blank form
+        form = RentalListingForm()
+        
+    return render(request, "rental/new_listing.html", {"form": form})
     
 
 @login_required

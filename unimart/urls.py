@@ -19,10 +19,12 @@ from django.urls import path, include
 from .views import home, waitlist_v, waitlist_submit, about, profile
 from django.conf.urls.static import static
 from django.conf import settings
+from .views import home, waitlist_v, waitlist_submit, about, profile, recommendations_page
 
 urlpatterns = [
     path('', home, name="home"),
     path('admin/', admin.site.urls),
+    path('recommendations/', recommendations_page, name='recommendations'),
     path('accounts/profile/', profile, name="profile"),
     path('accounts/', include('allauth.urls')),
     path('mart/', include('mart.urls')),
@@ -30,6 +32,8 @@ urlpatterns = [
     path('waitlist/', waitlist_v, name="waitlist"),
     path('join_waitlist', waitlist_submit, name="waitlist_submit"),
     path('about/', about, name="about"),
+    path('api/', include('chatbot.urls')),
+    path('api/', include('recommender.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

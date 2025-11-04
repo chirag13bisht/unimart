@@ -308,3 +308,226 @@ footer {
 .copyright {
   color: white;
 }
+
+/* ================================== */
+/* STYLES FOR LOGIN & SIGNUP FORMS    */
+/* ================================== */
+
+/* This container will center the form on the page */
+.login-page-container {
+  width: 100%;
+  max-width: 420px;
+  padding: 40px 20px; /* Add space from your header */
+  margin: 0 auto; /* This centers it horizontally */
+  box-sizing: border-box;
+}
+
+/* The main form card */
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  padding: 32px;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Form header (LOGIN, SIGNUP) */
+.login-header h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: 600;
+  font-size: 24px;
+}
+.login-header p {
+  margin-bottom: 24px;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Error messages */
+.login-header .error {
+  color: #d93025;
+  font-weight: 500;
+  font-size: 13px;
+  margin-bottom: 15px;
+  padding: 10px;
+  background: #fbeae9;
+  border-radius: 8px;
+  border: 1px solid #d93025;
+}
+
+/* Form fields (username, password, etc.) */
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f7f7f7;
+  width: 100%;
+  border: 1px solid #ddd;
+  margin-bottom: 16px;
+  padding: 14px;
+  box-sizing: border-box;
+  font-size: 14px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.form input:focus {
+  border-color: #4CAF50; 
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+  background: #fff;
+}
+
+/* Login/Signup button */
+.form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4CAF50;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form button:hover, .form button:focus {
+  background: #43A047;
+}
+
+/* "Not registered?" link */
+.form .message {
+  margin: 20px 0 0;
+  color: #888;
+  font-size: 13px;
+}
+.form .message a {
+  color: #4CAF50;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+.form .message a:hover {
+  color: #43A047;
+}
+
+/* ================================== */
+/* STYLES FOR CHATBOT WIDGET         */
+/* ================================== */
+
+.chat-bubble {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 60px;
+  height: 60px;
+  background-color: #4CAF50; /* Your site's green */
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: transform 0.2s;
+}
+
+.chat-bubble:hover {
+  transform: scale(1.1);
+}
+
+.chat-window {
+  position: fixed;
+  bottom: 100px;
+  right: 25px;
+  width: 350px;
+  max-width: 90%;
+  height: 450px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  z-index: 1001;
+  /* Hide it by default */
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Class to show the window */
+.chat-window.visible {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.chat-header {
+  padding: 15px;
+  background: #f1f1f1;
+  border-bottom: 1px solid #ddd;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-header button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 0 5px;
+}
+
+.chat-body {
+  flex-grow: 1;
+  padding: 15px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chat-message {
+  padding: 10px 15px;
+  border-radius: 18px;
+  max-width: 80%;
+  font-size: 14px;
+}
+
+.chat-message.user {
+  background-color: #4CAF50;
+  color: white;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-message.bot {
+  background-color: #f1f1f1;
+  color: black;
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.chat-footer {
+  padding: 15px;
+  border-top: 1px solid #ddd;
+}
+
+.chat-footer input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box; /* Fixes padding issue */
+}

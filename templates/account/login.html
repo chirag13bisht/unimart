@@ -1,0 +1,39 @@
+{% extends "account/base.html" %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% load account socialaccount %}
+{% load static %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="login-page-container"> 
+  <div class="form">
+    <div class="login-header">
+      <h3>LOGIN</h3>
+      <p>Welcome back to Unimart!</p>
+      
+      {% if form.errors %}
+        {% for field, errors in form.errors.items %}
+          {% for error in errors %}
+            <p class="error">{{ error|escape }}</p>
+          {% endfor %}
+        {% endfor %}
+      {% endif %}
+    </div>
+    
+    <form class="login-form" method="POST" action="{% url 'account_login' %}">
+      {% csrf_token %}
+      {% render_field form.login placeholder="Username or Email" %}
+      {% render_field form.password placeholder="Password" %}
+      <button>login</button>
+      <p class="message">Not registered? <a href="{{ signup_url }}">Create an account</a></p>
+      <p class="message" style="margin-top: 10px;"><a href="{% url 'account_reset_password' %}">Forgot your password?</a></p>
+    </form>
+  </div>
+</div>
+{% endblock %}

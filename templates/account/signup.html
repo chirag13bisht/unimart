@@ -1,0 +1,43 @@
+{% extends "account/base.html" %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% load static %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="login-page-container">
+  <div class="form">
+    <div class="login-header">
+      <h3>SIGN UP</h3>
+      <p>Join the Unimart community!</p>
+      
+      {% if form.errors %}
+        {% for field, errors in form.errors.items %}
+          {% for error in errors %}
+            <p class="error">{{ error|escape }}</p>
+          {% endfor %}
+        {% endfor %}
+      {% endif %}
+    </div>
+    
+    <form class="login-form" id="signup_form" method="post" action="{% url 'account_signup' %}">
+      {% csrf_token %}
+      {% for field in form %}
+        {% render_field field placeholder=field.label %}
+      {% endfor %}
+      
+      {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+      {% endif %}
+      
+      <button type:="submit">{% trans "Sign Up" %}</button>
+      <p class="message">Already registered? <a href="{{ login_url }}">Log in</a></p>
+    </form>
+  </div>
+</div>
+{% endblock %}

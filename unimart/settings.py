@@ -41,13 +41,16 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.staticfiles',
     'users',
-    'allauth_ui',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'widget_tweaks',
     'mart',
     'rental',
+    'chatbot',
+    'recommender',
+    'notifications',
+    'community',
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -79,6 +82,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'notifications.context_processors.notifications_context',
             ],
         },
     },
@@ -157,3 +161,13 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# --- CELERY SETTINGS ---
+# This is the URL of our Redis server (the one Memurai is running)
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.CustomSignupForm'

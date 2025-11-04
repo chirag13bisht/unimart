@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main %}
+
+<div class="container mx-auto px-4 py-12">
+  <h2 class="text-3xl font-bold text-center mb-8">Recommended for You</h2>
+
+  {% if recommended_items %}
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      
+      {% for item in recommended_items %}
+        <div class="max-w-sm bg-white border-2 border-[#F6931C] rounded-lg shadow-md hover:shadow-xl transition-shadow">
+          
+          {% if item.model_type == 'mart' %}
+            <a href="/mart/product/{{ item.id }}/">
+          {% elif item.model_type == 'rental' %}
+            <a href="/rental/product/{{ item.id }}/">
+          {% else %}
+            <a href="#">
+          {% endif %}
+              
+              <img class="rounded-t-lg h-48 w-full object-cover" src="{{ item.image.url }}" alt="{{ item.name }}" />
+              
+              <div class="p-5">
+                <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900">{{ item.name }}</h5>
+                
+                <p class="mb-2 font-semibold text-gray-700">
+                  {% if item.model_type == 'mart' %}
+                    Price: ₹{{ item.price }}
+                  {% else %}
+                    Rate: {{ item.price }}
+                  {% endif %}
+                </p>
+                <p class="text-sm text-gray-500">{{ item.category }}</p>
+              </div>
+            </a>
+        </div>
+      {% endfor %}
+      
+    </div>
+  {% else %}
+    <p class="text-center text-gray-500">
+      We don't have any recommendations for you yet.
+      <br>
+      Start browsing and inquiring about items to get personalized results!
+    </p>
+  {% endif %}
+</div>
+
+{% endblock %}
